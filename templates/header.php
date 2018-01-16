@@ -23,10 +23,15 @@
           <?php endforeach; ?>
       </nav>
       <nav class="filters">
-          <a class="item active task-work" href="">Work</a>
-          <a class="item task-gaming" href="">Gaming</a>
-          <a class="item task-cart" href="">Cart</a>
-          <a class="item task-perso" href="">Perso</a>
+        <?php foreach($categories as $index => $cat): ?>
+          <?php if(!isset($_GET['category']) && $index === 0): ?>
+              <a href="index.php?category=<?= $cat ?>" class="item active task-<?= strtolower($cat) ?>"><?= $cat ?></a>
+          <?php elseif(isset($_GET['category']) && $_GET['category'] === $cat): ?>
+              <a href="index.php?category=<?= $cat ?>" class="item active task-<?= strtolower($cat) ?>"><?= $cat ?></a>
+          <?php else: ?>
+              <a href="index.php?category=<?= $cat ?>" class="item task-<?= strtolower($cat) ?>"><?= $cat ?></a>
+          <?php endif; ?>
+        <?php endforeach; ?>
       </nav>
     </header>
     <main>

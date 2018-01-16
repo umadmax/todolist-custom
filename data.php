@@ -2,7 +2,7 @@
 
 $title = 'Todolist';
 $filters = ['All', 'Completed', 'Todo'];
-$categories = ['Work', 'Gaming', 'Cart', 'Perso'];
+$categories = ['All','Work', 'Gaming', 'Cart', 'Perso'];
 
 // Todolist elements
 $tasks = [
@@ -58,6 +58,17 @@ if(isset($_GET['filter'])) {
   }
 }
 
+if(isset($_GET['category'])) {
+  foreach($categories as $category) {
+    if($_GET['category'] === 'All') {
+      // Nothing to do
+    }
+    else if($_GET['category'] === $category) {
+      $tasks = catFilter($category);
+    }
+  }
+}
+
 function applyFilter($isDone) {
   // Retrieve $tasks in this scope
   global $tasks;
@@ -70,6 +81,17 @@ function applyFilter($isDone) {
         array_push($results, $task);
   }
   // Return only filtered tasks
+  return $results;
+}
+
+function catFilter($cat) {
+  global $tasks;
+  $results = [];
+
+  foreach($tasks as $task) {
+    if($task['category'] === strtolower($cat))
+      array_push($results, $task);
+  }
   return $results;
 }
 
