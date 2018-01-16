@@ -1,38 +1,45 @@
 <ul class="tasks">
-  <li class="task-red">
-    <span class="item-label">What to do</span>
+  <?php foreach($tasks as $task): ?>
+  <li class="task-<?= $task['category'] ?> <?=($task['done'] ? 'done' : '')?>">
+    <span class="item-label"><?= $task['title'] ?></span>
+    <form class="item-form-edit" action="">
+        <input class="field item-form-text" type="text" name="" value="">
+        <button class="field btn success" type="submit" name="">Edit</button>
+        <button class="field btn danger" name="">Cancel</button>
+    </form>
     <div class=".item-actions filters">
-      <a class="fa fa-check-square" href="#"></a>
-      <a class="fa fa-tags" href="#"></a>
-      <a class="fa fa-pencil-square-o" href="#"></a>
-      <a class="fa fa-trash" href="#"></a>
+      <a class="item fa fa-check-square"></a>
+      <a class="item fa fa-tags"></a>
+      <a class="item-edit item fa fa-pencil-square-o"></a>
+      <a class="item fa fa-trash danger"></a>
     </div>
   </li>
-  <li class="task-purple">
+  <?php endforeach; ?>
+  <!-- <li class="task-work">
     <span class="item-label">What to do</span>
     <div class=".item-actions filters">
-      <a class="fa fa-check-square" href="#"></a>
-      <a class="fa fa-tags" href="#"></a>
-      <a class="fa fa-pencil-square-o" href="#"></a>
-      <a class="fa fa-trash" href="#"></a>
+      <a class="item fa fa-check-square success"></a>
+      <a class="item fa fa-tags"></a>
+      <a class="item-edit item fa fa-pencil-square-o"></a>
+      <a class="item fa fa-trash danger"></a>
     </div>
   </li>
-  <li class="task-blue">
+  <li class="task-work">
     <span class="item-label">What to do</span>
     <div class=".item-actions filters">
-      <a class="fa fa-check-square" href="#"></a>
-      <a class="fa fa-tags" href="#"></a>
-      <a class="fa fa-pencil-square-o" href="#"></a>
-      <a class="fa fa-trash" href="#"></a>
+      <a class="item fa fa-check-square success"></a>
+      <a class="item fa fa-tags"></a>
+      <a class="item-edit item fa fa-pencil-square-o"></a>
+      <a class="item fa fa-trash danger"></a>
     </div>
   </li>
-  <li class="task-orange">
+  <li class="task-perso">
     <span class="item-label">What to do</span>
     <div class=".item-actions filters">
-      <a class="fa fa-check-square" href="#"></a>
-      <a class="fa fa-tags" href="#"></a>
-      <a class="fa fa-pencil-square-o" href="#"></a>
-      <a class="fa fa-trash" href="#"></a>
+      <a class="item fa fa-check-square success"></a>
+      <a class="item fa fa-tags"></a>
+      <a class="item-edit item fa fa-pencil-square-o"></a>
+      <a class="item fa fa-trash danger"></a>
     </div>
-  </li>
+  </li> -->
 </ul>
