@@ -15,7 +15,7 @@ if(isset($_POST)) {
   else {
     // Add the new task to $_SESSION
     if(isset($_POST['newTitle']) && isset($_POST['category']))
-    array_push($_SESSION['tasks'], addTask($_POST['newTitle'], $_POST['category']));
+      array_push($_SESSION['tasks'], addTask($_POST['newTitle'], $_POST['category']));
   }
 
 }
