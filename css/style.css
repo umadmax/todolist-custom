@@ -84,7 +84,17 @@ header h1 {
 	padding: 5px 8px;
 }
 
-.tasks .item-actions {}
+.tasks .item-actions .item {
+  border-color: #2c3e50;
+  background-color: #2c3e50;
+  color: #fff;
+}
+
+.tasks .item-actions .item:hover {
+  border-color: #fff;
+  background-color: #f1f1f1;
+  color: #2c3e50;
+}
 
 .tasks .task-cart { border-left-color: #e74c3c; color: #e74c3c; }
 
@@ -96,10 +106,10 @@ header h1 {
 .item.task-work { background-color: #9b59b6; color: #fff;}
 .item.task-work:hover { background-color: #8e44ad; }
 
-.tasks .task-perso { border-left-color: #3498db; color: #3498db; }
+.tasks .task-misc { border-left-color: #3498db; color: #3498db; }
 
-.item.task-perso { background-color: #3498db; color: #fff;}
-.item.task-perso:hover { background-color: #2980b9; }
+.item.task-misc { background-color: #3498db; color: #fff;}
+.item.task-misc:hover { background-color: #2980b9; }
 
 .tasks .task-gaming { border-left-color: #f39c12; color: #f39c12; }
 
@@ -136,15 +146,16 @@ header h1 {
 	border-color: #2ecc71;
 }
 
-.danger, .item.danger {
+.danger, .item-actions .item.danger {
 	background-color: #e74c3c;
 	border-color: #e74c3c;
 	color: #fff;
 }
 
-.danger:hover, .item.danger:hover {
+.danger:hover, .item-actions .item.danger:hover {
 	background-color: #c0392b;
 	border-color: #c0392b;
+  color: #fff;
 }
 
 hr {

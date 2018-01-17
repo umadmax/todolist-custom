@@ -1,70 +1,122 @@
 <?php
 
+// Page title
 $title = 'Todolist';
+
+// Filters array
 $filters = ['All', 'Completed', 'Todo'];
-$categories = ['All','Work', 'Gaming', 'Cart', 'Perso'];
 
-// Todolist elements
-$tasks = [
-  [
-    'title' => 'Acheter du café',
-    'category' => 'cart',
-    'done' => true
-  ],
-  [
-    'title' => 'Appeler Philippe',
-    'category' => 'work',
-    'done' => true
-  ],
-  [
-    'title' => 'Finir Todolist',
-    'category' => 'work',
-    'done' => false
-  ],
-  [
-    'title' => 'Acheter MHW',
-    'category' => 'gaming',
-    'done' => false
-  ],
-  [
-    'title' => 'Sortir le chien',
-    'category' => 'perso',
-    'done' => true
-  ],
-  [
-    'title' => 'Finir Nier:Automata',
-    'category' => 'gaming',
-    'done' => false
-  ],
-  [
-    'title' => 'Backseat Ludo',
-    'category' => 'work',
-    'done' => false
-  ],
-];
+// Categories array
+$categories = ['Work', 'Gaming', 'Cart', 'Misc'];
 
-// If filter is set in the url
-if(isset($_GET['filter'])) {
-  if($_GET['filter'] === 'all') {
+// If tasks array has not been added to $_SESSION
+if(!isset($_SESSION['tasks'])) {
+
+  // Set the task array
+  $_SESSION['tasks'] = [
+    [
+      'id' => 1,
+      'title' => 'Acheter du café',
+      'category' => 'cart',
+      'done' => true
+    ],
+    [
+      'id' => 2,
+      'title' => 'Appeler Philippe',
+      'category' => 'work',
+      'done' => true
+    ],
+    [
+      'id' => 3,
+      'title' => 'Finir Todolist',
+      'category' => 'work',
+      'done' => false
+    ],
+    [
+      'id' => 4,
+      'title' => 'Acheter MHW',
+      'category' => 'gaming',
+      'done' => false
+    ],
+    [
+      'id' => 5,
+      'title' => 'Sortir le chien',
+      'category' => 'misc',
+      'done' => true
+    ],
+    [
+      'id' => 6,
+      'title' => 'Finir Nier:Automata',
+      'category' => 'gaming',
+      'done' => false
+    ],
+    [
+      'id' => 7,
+      'title' => 'Backseat Ludo',
+      'category' => 'work',
+      'done' => false
+    ],
+  ];
+
+}
+
+// Set a intermediary variable with session's array values
+$tasks = $_SESSION['tasks'];
+
+// If filter is set in the url or in $_SESSION
+if(isset($_GET['filter']) || isset($_SESSION['filter'])) {
+
+  // Define a intermediary variable
+  $filter = null;
+
+  // If filter is set in the url
+  if(isset($_GET['filter'])) {
+    // Set $filter
+    $filter = $_GET['filter'];
+    // Copy filter to $_SESSION
+    $_SESSION['filter'] = $_GET['filter'];
+  }
+  // If filter is not set in the URL, set $filter with $_SESSION filter value
+  else $filter = $_SESSION['filter'];
+
+  if($filter === 'all') {
     // Nothing to do
   }
-  elseif($_GET['filter'] === 'completed'){
+  elseif($filter === 'completed'){
     // $tasks === array with filtered values returned by the fonction
     $tasks = applyFilter(true);
   }
-  elseif($_GET['filter'] === 'todo') {
+  elseif($filter === 'todo') {
     // $tasks === array with filtered values returned by the fonction
     $tasks = applyFilter(false);
   }
 }
 
-if(isset($_GET['category'])) {
-  foreach($categories as $category) {
-    if($_GET['category'] === 'All') {
-      // Nothing to do
-    }
-    else if($_GET['category'] === $category) {
-      $tasks = catFilter($category);
+// If category is set in the url or in $_SESSION
+if(isset($_GET['category']) || isset($_SESSION['category'])) {
+
+  // Define a intermediary variable
+  $catFilter = null;
+
+  // If category is set in the url
+  if(isset($_GET['category'])) {
+    // Set $catFilter
+    $catFilter = $_GET['category'];
+    // Copy category to $_SESSION
+    $_SESSION['category'] = $_GET['category'];
+  }
+  // If category is not set in the URL, set $catFilter with $_SESSION category value
+  else $catFilter = $_SESSION['category'];
+
+  if($catFilter === 'All') {
+    unset($_SESSION['category']);
+  }
+  else {
+    foreach($categories as $category) {
+      // Filter tasks with given category
+      if($catFilter === $category){
+        $tasks = applyCategory($category);
+      }
     }
   }
 }
@@ -84,14 +136,18 @@ function applyFilter($isDone) {
   return $results;
 }
 
-function catFilter($cat) {
+function applyCategory($cat) {
+  // Retrieve $tasks in this scope
   global $tasks;
   $results = [];
 
   foreach($tasks as $task) {
+    // If the parameter === task category
     if($task['category'] === strtolower($cat))
+      // Add the task in $results
       array_push($results, $task);
   }
+  // Return only filtered tasks
   return $results;
 }
 
